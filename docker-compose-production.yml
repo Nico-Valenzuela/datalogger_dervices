@@ -25,8 +25,8 @@ services:
       - emqx
       - mongo
 
-    command: sh -c "npm run build && npm run start"
-    #command: sh -c "npm install"
+    #command: sh -c "npm run build && npm run start"
+    command: sh -c "npm install"
 
   mongo:
     container_name: mongo
