@@ -3,11 +3,13 @@ version: "3.8"
 volumes:
   vol-emqx-data:
     name: foo-emqx-data
-  #  vol-emqx-etc:
-  #    name: foo-emqx-etc
+#  vol-emqx-etc:
+#    name: foo-emqx-etc
   vol-emqx-log:
     name: foo-emqx-log
 #
+
+
 services:
   mongo:
     container_name: mongo
@@ -35,15 +37,13 @@ services:
 
     volumes:
       - vol-emqx-data:/opt/emqx/data
-      #   - vol-emqx-etc:/opt/emqx/etc
       - vol-emqx-log:/opt/emqx/log
-    #
 
     links:
       - mongo
 
     extra_hosts:
-      - "localhost:192.168.0.172"
+      - "localhost:192.168.0.6"
 
     environment:
       EMQX_NAME: ioticos-gl
