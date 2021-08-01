@@ -6,9 +6,7 @@ volumes:
   vol-emqx-log:
     name: foo-emqx-log
 
-
 services:
-
   node:
     container_name: node
     image: "node:14"
@@ -25,13 +23,15 @@ services:
       - emqx
       - mongo
 
-    command: sh -c "npm run build && npm run start"
+    command: sh -c "echo 'delaying 30 seconds' && sleep 30 && npm run start"
     #command: sh -c "npm install"
 
   mongo:
     container_name: mongo
     image: mongo:4.4
     restart: always
+    logging:
+      driver: "none"
     environment:
       TZ: "${TZ}"
       MONGO_INITDB_ROOT_USERNAME: "${MONGO_USERNAME}"
@@ -45,10 +45,10 @@ services:
     container_name: emqx
     image: emqx/emqx:4.2.3
     restart: always
+
     ports:
       - 18083:18083
       - 1883:1883
-      - 8883:8883
       - 8083:8083
       - 8085:8081
 
@@ -56,13 +56,11 @@ services:
       - vol-emqx-data:/opt/emqx/data
       - vol-emqx-log:/opt/emqx/log
 
-    
-
     links:
       - mongo
 
     extra_hosts:
-      - "localhost:192.168.0.6"
+      - "localhost:192.168.0.172"
 
     environment:
       EMQX_NAME: ioticos-gl
@@ -112,4 +110,3 @@ services:
       EMQX_LOADED_PLUGINS: "emqx_recon,emqx_retainer,emqx_management,emqx_dashboard,emqx_auth_mongo"
 
       EMQX_LISTENER__TCP__EXTERNAL__MAX_CONNECTIONS: 1000
-
