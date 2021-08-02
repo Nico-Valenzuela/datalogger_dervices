@@ -13,7 +13,7 @@ services:
     restart: always
     working_dir: /home/node/app
     volumes:
-      - ./app/:/home/node/app
+      - ./mycode/index.js:/home/node/app/index.js
     ports:
       - "3000:3000"
       - "3001:3001"
@@ -23,8 +23,13 @@ services:
       - emqx
       - mongo
 
+<<<<<<< HEAD
     command: sh -c "echo 'delaying 30 seconds' && sleep 30 && npm run start"
+=======
+    #command: sh -c "npm run build && npm run start"
+>>>>>>> ac690a4040b7c87aa1838fb835aed1cb61fd7c6f
     #command: sh -c "npm install"
+    command: sh -c "node index.js"
 
   mongo:
     container_name: mongo
